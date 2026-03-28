@@ -6,6 +6,9 @@
     <meta name="description" content="Menú completo de Cafenar. Pide tus sándwiches, bebidas y platos fuertes a domicilio.">
     <title>Cafenar | Menú y Pedidos</title>
 
+    <!-- Favicon (Emoji SVG sin dependencias para carga rapida) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
@@ -264,7 +267,9 @@
 
         const updateItemCount = (card, delta) => {
             const name = card.dataset.name;
-            const price = parseFloat(card.dataset.price);
+            // Parse text directly from DOM element to respect frontend overrides
+            const priceText = card.querySelector('.menu-card__price').textContent.replace('$', '').trim();
+            const price = parseFloat(priceText);
             
             if (!cart[name]) cart[name] = { price, qty: 0 };
             
