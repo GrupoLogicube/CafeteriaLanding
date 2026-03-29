@@ -6,6 +6,9 @@
     <meta name="description" content="Cafenar - Disfruta del mejor café Roman y Swiss. Pedidos a domicilio y reservaciones disponibles.">
     <title>Cafenar | Tradición y Calidad</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
     <!-- Pareo Tipográfico: Inter & Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +62,24 @@
                 <a href="#about" class="nav__link">Nosotros</a>
                 <a href="#gallery" class="nav__link">Galería</a>
                 <a href="#location" class="nav__link">Ubicación</a>
+                
+                <!-- Botón Hacia Menú Page -->
+                <a href="menu.html" class="nav__btn-order">
+                    <span class="nav__btn-order-bg"></span>
+                    <div class="nav__btn-order-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            <line class="steam-line sl-1" x1="6" y1="1" x2="6" y2="4"></line>
+                            <line class="steam-line sl-2" x1="10" y1="1" x2="10" y2="4"></line>
+                            <line class="steam-line sl-3" x1="14" y1="1" x2="14" y2="4"></line>
+                        </svg>
+                    </div>
+                    <span class="nav__btn-order-text">Menú y Pedidos</span>
+                    <div class="nav__btn-order-shine"></div>
+                </a>
             </nav>
+
         </div>
     </header>
 
@@ -73,6 +93,23 @@
                 <p class="hero__subtitle" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400">
                     Disfruta de nuestra exclusiva variedad de grano. En Cafenar, honramos el sabor, el reposo y el origen del mejor café de especialidad.
                 </p>
+                <div class="hero__status" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600">
+                    <div class="status-interactive">
+                        <div class="nav__status">
+                            <div class="nav__status-led">
+                                <span id="status-dot" class="status-dot"></span>
+                            </div>
+                            <div class="nav__status-text-wrap">
+                                <span id="status-text" class="status-text">...</span>
+                                <span id="status-countdown" class="status-countdown"></span>
+                            </div>
+                        </div>
+                        <div class="status-tooltip">
+                            <span class="tooltip-title">Horarios</span>
+                            Mar - Sab: 8:00am - 11:00am<br>y 3:00pm - 7:30pm
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Dynamic Assets Wrapper (Video Cover con brillo animado verdoso) -->
@@ -194,7 +231,7 @@
             </div>
         </section>
 
-        <!-- Location Section (Floating Glass Card over iFrame) -->
+        <!-- Location Section (Floating Glass Card with Mobile App-like Drawer) -->
         <section id="location" class="location">
             <div class="location__container">
                 <div class="location__map-wrapper" data-aos="fade-in" data-aos-duration="1500">
@@ -207,10 +244,21 @@
                         title="Ubicación de Cafenar en Google Maps">
                     </iframe>
                 </div>
-                <div class="location__info-card" data-aos="fade-left" data-aos-delay="300">
-                    <h2 class="section__title">Visítanos</h2>
-                    <p class="location__text">Ven a disfrutar del mejor ambiente en nuestra sucursal. Te esperamos todos los días para que pruebes nuestro único Swiss & Roman Coffee.</p>
-                    <p class="location__address">📍 Av. de los Cafetos 123, Centro Histórico</p>
+                <!-- ID añadido para manipular con JS en móvil -->
+                <div class="location__info-card" id="location-card" data-aos="fade-up" data-aos-delay="300">
+                    <!-- Handle estilo iOS visible solo en móviles -->
+                    <button class="location__toggle-btn" id="location-toggle" aria-label="Mostrar u ocultar mapa">
+                        <span class="toggle-line"></span>
+                        <span class="toggle-text">Ver Mapa</span>
+                    </button>
+                    <!-- Wrapper agregado para la animación CSS Grid Accordion -->
+                    <div class="location__card-wrapper">
+                        <div class="location__card-content">
+                            <h2 class="section__title">Visítanos</h2>
+                            <p class="location__text">Ven a disfrutar del mejor ambiente en nuestra sucursal. Te esperamos todos los días para que pruebes nuestro único Swiss & Roman Coffee.</p>
+                            <p class="location__address">📍 Av. de los Cafetos 123, Centro Histórico</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -303,20 +351,129 @@
             document.body.style.setProperty('--my', `${y}px`);
         });
 
-        // 5. Hide Navbar on Scroll Down, Show on Scroll Up
+        // 5. Lógica de horario del local con Next-Time logic (Base Hora México)
+        function updateStoreStatus() {
+            const statusDot = document.getElementById('status-dot');
+            const statusText = document.getElementById('status-text');
+            const statusCountdown = document.getElementById('status-countdown');
+            if (!statusDot || !statusText) return;
+
+            const now = new Date();
+            // Zona horaria de Ecuador continental
+            const mxTimeStr = now.toLocaleString("en-US", {timeZone: "America/Guayaquil"});
+            const mxTime = new Date(mxTimeStr);
+            
+            const day = mxTime.getDay(); // 0 = Dom .. 6 = Sab
+            const nowMins = mxTime.getHours() * 60 + mxTime.getMinutes();
+
+            // Horario: Martes a Sabado (8:00 a 11:00 y 15:00 a 19:30)
+            const schedule = [
+                [], // 0: Dom
+                [], // 1: Lun
+                [{open: 8*60, close: 11*60}, {open: 15*60, close: 19*60 + 30}], // 2: Mar
+                [{open: 8*60, close: 11*60}, {open: 15*60, close: 19*60 + 30}], // 3: Mie
+                [{open: 8*60, close: 11*60}, {open: 15*60, close: 19*60 + 30}], // 4: Jue
+                [{open: 8*60, close: 11*60}, {open: 15*60, close: 19*60 + 30}], // 5: Vie
+                [{open: 8*60, close: 11*60}, {open: 15*60, close: 19*60 + 30}]  // 6: Sab
+            ];
+
+            let isOpen = false;
+            let timeDiff = 0; 
+            let nextAction = ""; 
+
+            const todaySchedule = schedule[day];
+            
+            for (let shift of todaySchedule) {
+                if (nowMins >= shift.open && nowMins < shift.close) {
+                    isOpen = true;
+                    timeDiff = shift.close - nowMins;
+                    nextAction = "Cerramos";
+                    break;
+                }
+            }
+
+            if (!isOpen) {
+                nextAction = "Abrimos";
+                let found = false;
+                for (let shift of todaySchedule) {
+                    if (nowMins < shift.open) {
+                        timeDiff = shift.open - nowMins;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    let d = 1;
+                    while (d <= 7) {
+                        let checkDay = (day + d) % 7;
+                        if (schedule[checkDay].length > 0) {
+                            let nextOpen = schedule[checkDay][0].open;
+                            timeDiff = (24 * 60 - nowMins) + ((d - 1) * 24 * 60) + nextOpen;
+                            break;
+                        }
+                        d++;
+                    }
+                }
+            }
+
+            // Aplicar Visuales
+            if (isOpen) {
+                statusText.textContent = 'Abierto';
+                statusDot.className = 'status-dot status-dot--open';
+            } else {
+                statusText.textContent = 'Cerrado';
+                statusDot.className = 'status-dot status-dot--closed';
+            }
+
+            // Aplicar Cuenta Regresiva
+            const formatTimeDiff = (mins) => {
+                if (mins < 60) return `en ${mins} min`;
+                let h = Math.floor(mins / 60);
+                let m = mins % 60;
+                if (h >= 24) {
+                    let d = Math.floor(h / 24);
+                    return `en ${d} día${d>1?'s':''}`;
+                }
+                if (m === 0) return `en ${h} hr${h>1?'s':''}`;
+                return `en ${h} hr ${m} min`;
+            };
+
+            if (statusCountdown) {
+                statusCountdown.textContent = `${nextAction} ${formatTimeDiff(timeDiff)}`;
+            }
+        }
+        updateStoreStatus();
+        setInterval(updateStoreStatus, 60000); // Check visual al minuto
+
+        // 6. Hide Navbar on Scroll Down, Show on Scroll Up
         let lastScrollY = window.scrollY;
         const header = document.querySelector('.header');
         
         window.addEventListener('scroll', () => {
             if (window.scrollY > lastScrollY && window.scrollY > 80) {
-                // Hacia abajo: se esconde
                 header.classList.add('header--hidden');
             } else {
-                // Hacia arriba: aparece
                 header.classList.remove('header--hidden');
             }
             lastScrollY = window.scrollY;
         });
+
+        // 7. Drawer de Ubicación para Móviles (Estilo App)
+        const locationCard = document.getElementById('location-card');
+        const locationToggle = document.getElementById('location-toggle');
+        const toggleText = locationToggle ? locationToggle.querySelector('.toggle-text') : null;
+        
+        if (locationToggle && locationCard) {
+            locationToggle.addEventListener('click', () => {
+                locationCard.classList.toggle('is-collapsed');
+                // Alterar texto dinámicamente
+                if (locationCard.classList.contains('is-collapsed')) {
+                    toggleText.textContent = 'Ver Detalles';
+                } else {
+                    toggleText.textContent = 'Ver Mapa';
+                }
+            });
+        }
     </script>
 </body>
 </html>

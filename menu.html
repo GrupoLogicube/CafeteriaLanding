@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Menú completo de Cafenar. Pide tus sándwiches, bebidas y platos fuertes a domicilio.">
+    <title>Cafenar | Menú y Pedidos</title>
+
+    <!-- Favicon (Emoji SVG sin dependencias para carga rapida) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body class="menu-page">
+    <header class="header" data-aos="fade-in" data-aos-duration="1000">
+        <div class="header__container">
+            <a href="index.html" class="header__logo" aria-label="Ir a Inicio">
+                <svg class="header__logo-svg" viewBox="0 0 100 100" style="height: 36px; width: 36px; fill: none; stroke: currentColor; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; margin-right: 4px;" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <style>
+                        .cup-steam { animation: steamRise 3s infinite ease-in-out; opacity: 0; }
+                        .cup-steam-2 { animation-delay: 1.5s; }
+                        @keyframes steamRise {
+                            0% { transform: translateY(5px); opacity: 0; }
+                            50% { opacity: 1; }
+                            100% { transform: translateY(-10px); opacity: 0; }
+                        }
+                    </style>
+                    <path d="M 25 45 L 75 45 C 75 75 60 90 50 90 C 40 90 25 75 25 45 Z" fill="currentColor" stroke="none"/>
+                    <path d="M 75 55 C 95 55 95 75 75 75" />
+                    <path d="M 15 95 L 85 95" />
+                    <path d="M 40 35 C 35 25 45 15 40 5" class="cup-steam" />
+                    <path d="M 60 35 C 65 25 55 15 60 5" class="cup-steam cup-steam-2" />
+                </svg>
+                Cafenar
+            </a>
+            <nav class="nav">
+                <a href="index.html#about" class="nav__link">Nosotros</a>
+                <a href="index.html#gallery" class="nav__link">Galería</a>
+                <a href="index.html#location" class="nav__link">Ubicación</a>
+                
+                <!-- Botón Hacia Inicio -->
+                <a href="index.html" class="nav__btn-order">
+                    <span class="nav__btn-order-bg"></span>
+                    <div class="nav__btn-order-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <span class="nav__btn-order-text">Volver al Inicio</span>
+                    <div class="nav__btn-order-shine"></div>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="menu-container">
+        <div class="menu-intro animate__animated animate__fadeInDown">
+            <h1>Nuestro <span style="color: var(--color-accent-primary); font-style: italic;">Menú</span></h1>
+            <p>Selecciona tus favoritos y arma tu pedido perfecto.</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Bebidas -->
+            <section class="menu-category animate__animated animate__fadeInUp">
+                <h2 class="menu-category__title">Bebidas</h2>
+                <div class="menu-list">
+                    <div class="menu-card" data-name="Espresso Roman" data-price="45">
+                        <div class="menu-card__info">
+                            <h3>Espresso Roman</h3>
+                            <p>Intenso, corto y con mucho carácter. Herencia puramente italiana.</p>
+                            <span class="menu-card__price">$1.50</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Espresso Roman">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Latte Suizo" data-price="65">
+                        <div class="menu-card__info">
+                            <h3>Latte Suizo</h3>
+                            <p>Suave y lechoso con un toque de vainilla suiza artesanal.</p>
+                            <span class="menu-card__price">$1.50</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Latte Suizo">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Cappuccino Tradicional" data-price="55">
+                        <div class="menu-card__info">
+                            <h3>Cappuccino Tradicional</h3>
+                            <p>Equilibrio perfecto de espumada leche y café arábica.</p>
+                            <span class="menu-card__price">$1.50</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Cappuccino">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Cold Brew de la Casa" data-price="75">
+                        <div class="menu-card__info">
+                            <h3>Cold Brew de la Casa</h3>
+                            <p>Extracción lenta de 18 horas, refrescante y muy suave.</p>
+                            <span class="menu-card__price">$1.50</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Cold Brew">+</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sándwiches -->
+            <section class="menu-category animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <h2 class="menu-category__title">Sándwiches</h2>
+                <div class="menu-list">
+                    <div class="menu-card" data-name="Club Sándwich Clásico" data-price="120">
+                        <div class="menu-card__info">
+                            <h3>Club Sándwich Clásico</h3>
+                            <p>Capas de pechuga de pavo, tocino crujiente, lechuga y tomate en pan brioche.</p>
+                            <span class="menu-card__price">$2.50</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Club Sándwich">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Pavo y Queso Brie" data-price="150">
+                        <div class="menu-card__info">
+                            <h3>Pavo y Queso Brie</h3>
+                            <p>Pechuga al horno, queso brie derretido y mermelada de frutos rojos.</p>
+                            <span class="menu-card__price">$3.00</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Pavo y Queso Brie">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Vegano de Portobello" data-price="135">
+                        <div class="menu-card__info">
+                            <h3>Vegano de Portobello</h3>
+                            <p>Hongo portobello asado, espinacas y pesto de tomate deshidratado.</p>
+                            <span class="menu-card__price">$2.00</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Vegano Portobello">+</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Platos Fuertes -->
+            <section class="menu-category animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <h2 class="menu-category__title">Platos Fuertes</h2>
+                <div class="menu-list">
+                    <div class="menu-card" data-name="Chilaquiles Verdes" data-price="140">
+                        <div class="menu-card__info">
+                            <h3>Chilaquiles Verdes</h3>
+                            <p>Salsa verde tatemada, pechuga asada, crema de rancho y queso fresco.</p>
+                            <span class="menu-card__price">$3.00</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Chilaquiles">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Enchiladas Suizas" data-price="160">
+                        <div class="menu-card__info">
+                            <h3>Enchiladas Suizas</h3>
+                            <p>Bañadas en salsa cremosa de tomate y gratinadas con queso manchego.</p>
+                            <span class="menu-card__price">$3.00</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Enchiladas Suizas">+</button>
+                    </div>
+                    <div class="menu-card" data-name="Omelette de Cabra" data-price="130">
+                        <div class="menu-card__info">
+                            <h3>Omelette de Cabra</h3>
+                            <p>Relleno de espinacas baby, queso de cabra y champiñones al ajillo.</p>
+                            <span class="menu-card__price">$3.00</span>
+                        </div>
+                        <button class="menu-card__add" aria-label="Agregar Omelette">+</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Floating Order Button (Motocicleta animada por CSS) -->
+    <a href="https://wa.me/1234567890" class="floating-order animate__animated animate__fadeInUp" id="floating-order" target="_blank" aria-label="Confirmar pedido por WhatsApp">
+        <div class="floating-order__icon-wrapper">
+            <svg class="moto-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <g class="moto-lines-group">
+                    <line class="moto-line" x1="5" y1="40" x2="25" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line class="moto-line" x1="10" y1="55" x2="30" y2="55" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line class="moto-line" x1="0" y1="70" x2="20" y2="70" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </g>
+                <g class="moto-chassis">
+                    <path d="M 25 35 L 45 35 L 45 55 L 25 55 Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round" fill="none"/>
+                    <line x1="25" y1="42" x2="45" y2="42" stroke="currentColor" stroke-width="2"/>
+                    <path d="M 40 60 L 70 60 C 80 60 85 55 90 40 L 85 35" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+                    <path d="M 35 60 L 50 60 L 55 50 L 50 50 Z" fill="currentColor"/>
+                    <circle cx="60" cy="25" r="7" fill="currentColor"/>
+                    <path d="M 50 50 L 55 35 C 57 30 65 30 65 35 L 60 50 Z" fill="currentColor"/>
+                    <path d="M 58 35 L 75 42 L 85 41" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M 55 45 L 65 50 L 65 60 L 70 60" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M 85 30 L 95 30 L 92 42 L 83 42 Z" fill="currentColor"/>
+                    <circle class="moto-wheel" cx="42" cy="72" r="8" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="8 4"/>
+                    <circle class="moto-wheel" cx="78" cy="72" r="8" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="8 4"/>
+                </g>
+            </svg>
+        </div>
+        <div class="floating-order__info">
+            <span class="floating-order__title">Pedir YA!</span>
+            <span class="floating-order__cart">0 items - $0.00</span>
+        </div>
+    </a>
+
+    <!-- Lógica de Carrito a Whatsapp -->
+    <script>
+        const cart = {};
+        const floatingOrder = document.getElementById('floating-order');
+        const cartLabel = document.querySelector('.floating-order__cart');
+
+        const formatNumber = (num) => parseFloat(num).toFixed(2);
+
+        // Transform DOM for quantity selectors dynamically
+        document.querySelectorAll('.menu-card').forEach(card => {
+            const addBtn = card.querySelector('.menu-card__add');
+            if (addBtn) {
+                const ariaLabel = addBtn.getAttribute('aria-label');
+                const controlsNode = document.createElement('div');
+                controlsNode.className = 'menu-card__controls';
+                controlsNode.innerHTML = `
+                    <button class="menu-card__add-initial" aria-label="${ariaLabel}">+</button>
+                    <div class="menu-card__qty-group">
+                        <button class="qty-btn qty-btn--minus" aria-label="Quitar">-</button>
+                        <span class="qty-num">0</span>
+                        <button class="qty-btn qty-btn--plus" aria-label="Añadir">+</button>
+                    </div>
+                `;
+                addBtn.replaceWith(controlsNode);
+            }
+        });
+
+        const updateCartUI = () => {
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            for (const [name, item] of Object.entries(cart)) {
+                totalItems += item.qty;
+                totalPrice += item.qty * item.price;
+            }
+
+            if (totalItems > 0) {
+                floatingOrder.classList.add('visible');
+                cartLabel.textContent = `${totalItems} items - $${formatNumber(totalPrice)}`;
+                // Animar brevemente el botón flotante
+                floatingOrder.style.transform = 'translateY(0) scale(1.05)';
+                setTimeout(() => {
+                    if (floatingOrder.classList.contains('visible')) {
+                        floatingOrder.style.transform = '';
+                    }
+                }, 200);
+            } else {
+                floatingOrder.classList.remove('visible');
+                cartLabel.textContent = `0 items - $0.00`;
+            }
+
+            // Construir link de Whatsapp
+            let wtspText = "Hola Cafenar, mi pedido es el siguiente:%0A";
+            if(totalItems > 0) {
+                for (const [name, item] of Object.entries(cart)) {
+                    if (item.qty > 0) {
+                        wtspText += `- ${item.qty}x ${name} ($${formatNumber(item.price * item.qty)})%0A`;
+                    }
+                }
+                wtspText += `%0ATotal aproximado: *$$${formatNumber(totalPrice)}*%0A`;
+                wtspText += `%0A¿Me confirman mi pedido por favor?`;
+            }
+            floatingOrder.href = `https://wa.me/1234567890?text=${wtspText}`;
+        };
+
+        const updateItemCount = (card, delta) => {
+            const name = card.dataset.name;
+            // Parse text directly from DOM element to respect frontend overrides
+            const priceText = card.querySelector('.menu-card__price').textContent.replace('$', '').trim();
+            const price = parseFloat(priceText);
+            
+            if (!cart[name]) cart[name] = { price, qty: 0 };
+            
+            cart[name].qty += delta;
+            if (cart[name].qty < 0) cart[name].qty = 0;
+            
+            const controls = card.querySelector('.menu-card__controls');
+            const qtyNum = controls.querySelector('.qty-num');
+            qtyNum.textContent = cart[name].qty;
+            
+            if (cart[name].qty > 0) {
+                controls.classList.add('is-active');
+                card.style.borderColor = "var(--color-accent-primary)";
+                card.style.boxShadow = "0 10px 30px rgba(210, 125, 70, 0.4)";
+                // Animar el número sutilmente
+                qtyNum.style.transform = "scale(1.3)";
+                setTimeout(() => qtyNum.style.transform = "scale(1)", 150);
+            } else {
+                controls.classList.remove('is-active');
+                card.style.borderColor = "transparent";
+                card.style.boxShadow = "";
+                delete cart[name];
+            }
+            
+            updateCartUI();
+        };
+
+        // Event delegation for quantity clicks
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if(e.target.classList.contains('menu-card__add-initial') || e.target.closest('.menu-card__add-initial')) {
+                    updateItemCount(card, 1);
+                } else if(e.target.classList.contains('qty-btn--plus') || e.target.closest('.qty-btn--plus')) {
+                    updateItemCount(card, 1);
+                } else if(e.target.classList.contains('qty-btn--minus') || e.target.closest('.qty-btn--minus')) {
+                    updateItemCount(card, -1);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
